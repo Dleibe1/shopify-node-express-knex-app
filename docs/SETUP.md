@@ -56,7 +56,9 @@ This is an in-depth guide on using this repo. This goes over getting the base re
   - `ngrok:auth`: Add in your auth token from [Ngrok](https://ngrok.com) to use the service.
   - `ngrok`: Ngrok is used to expose specific ports of your machine to the internet and serve over https. Running `npm run ngrok` auto generates a URL for you. The URL that's generated here goes in `SHOPIFY_APP_URL` and in the URL section of your app in Partner Dashboard.
   - `cloudflare`: Starts cloudflare tunnel on port 8081 (make sure you have `cloudflared` installed).
-  -
+  - `migrate:make`: Creates a new Knex migration in /migrations
+  - `migrate:latest`: Applies database migrations
+  - `migrate:rollback`: Rolls back migrations
   - `g:install`: Required global installs for buildling Shopify apps.
   - `shopify`: Run `shopify` commands
   - `update:config`: [Managed Installation] Use the Shopify CLI to update your configuration. Auto writes your `toml` file to root and `extension/` for syncing.

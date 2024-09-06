@@ -22,7 +22,10 @@ This is an in-depth guide on using this repo. This goes over getting the base re
   - `SHOPIFY_API_SCOPES`: Scopes required by your Shopify app. A list of access scopes can be found [here](https://shopify.dev/api/usage/access-scopes)
   - `SHOPIFY_APP_URL`: URL generated from Ngrok.
   - `SHOPIFY_API_VERSION`: Pre-filled to the latest version. All the calls in the repo are based off this API version so if you're downgrading please refer to the official docs instead. The repo is always kept up to date with the newest practices so you can rely on the basic repo to almost always work without depriciation errors popping up.
-  - `MONGO_URL`: Mongo connection URL. If you're using a locally hosted version, you can leave it blank or use `mongodb://127.0.0.1:27017/app-name-here`
+
+  I'm using PostgreSQL with Knex.js and Objection.js
+  - USE : `PG_CONNECTION_STRING`=`postgres://postgres:your_username@localhost:5432/app-name-here`
+  - INSTEAD OF: `MONGO_URL`: Mongo connection URL. If you're using a locally hosted version, you can leave it blank or use `mongodb://127.0.0.1:27017/app-name-here`
   - `ENCRYPTION_STRING`: String to use for Cryption for encrypting sessions token. Add a random salt (or a random string of letters and numbers) and save it. If you loose the string you cannot decrypt your sessions and must be kept safely.
   - `NPM_CONFIG_FORCE`: Set to `true` so if you deploy on spaces like Heroku, it runs `npm install --force` instead of `npm install`.
   -

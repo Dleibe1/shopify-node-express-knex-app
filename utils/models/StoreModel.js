@@ -1,10 +1,23 @@
-import mongoose from "mongoose";
+import { Model } from 'objection';
 
-const StoreSchema = new mongoose.Schema({
-  shop: { type: String, required: true, unique: true },
-  isActive: { type: Boolean, required: true, default: false },
-});
+class StoreModel extends Model {
 
-const StoreModel = mongoose.model("Active_Stores", StoreSchema);
+  static get tableName() {
+    return 'active_stores'; 
+  }
+
+  static get jsonSchema() {
+    return {
+      type: 'object',
+      required: ['shop'],
+
+      properties: {
+        id: { type: 'integer' },  
+        shop: { type: 'string', minLength: 1, maxLength: 255 },
+        isActive: { type: 'boolean', default: false },
+      },
+    };
+  }
+}
 
 export default StoreModel;

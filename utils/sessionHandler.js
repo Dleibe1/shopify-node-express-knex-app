@@ -1,63 +1,46 @@
 import { Session } from "@shopify/shopify-api";
-import Cryptr from "cryptr";
 import SessionModel from "./models/SessionModel.js";
 
-const cryption = new Cryptr(process.env.ENCRYPTION_STRING);
-
 /**
- * Stores the session data into the database.
+ * Stores the session data into the PostgreSQL database.
  *
  * @param {Session} session - The Shopify session object.
  * @returns {Promise<boolean>} Returns true if the operation was successful.
  */
 const storeSession = async (session) => {
-  await SessionModel.findOneAndUpdate(
-    { id: session.id },
-    {
-      content: cryption.encrypt(JSON.stringify(session)),
-      shop: session.shop,
-    },
-    { upsert: true }
-  );
+  await SessionModel.query().insert({
+    id: session.id,
+    shop: session.shop,
+    content: JSON.stringify(session),
+  });
 
   return true;
 };
 
 /**
- * Loads the session data from the database.
+ * Loads the session data from the PostgreSQL database.
  *
  * @param {string} id - The session ID.
- * @returns {Promise<Session | undefined>} Returns the Shopify session object or
- *   undefined if not found.
+ * @returns {Promise<Session | undefined>} Returns the Shopify session object or undefined if not found.
  */
 const loadSession = async (id) => {
-  const sessionResult = await SessionModel.findOne({ id });
-  if (sessionResult === null) {
+  const sessionResult = await SessionModel.query().findById(id);
+  if (!sessionResult) {
     return undefined;
   }
-  if (sessionResult.content.length > 0) {
-    const sessionObj = JSON.parse(cryption.decrypt(sessionResult.content));
-    const returnSession = new Session(sessionObj);
-    return returnSession;
-  }
-  return undefined;
+  const sessionObj = JSON.parse(sessionResult.content);
+  return new Session(sessionObj);
 };
 
 /**
- * Deletes the session data from the database.
+ * Deletes the session data from the PostgreSQL database.
  *
  * @param {string} id - The session ID.
  * @returns {Promise<boolean>} Returns true if the operation was successful.
  */
 const deleteSession = async (id) => {
-  await SessionModel.deleteMany({ id });
+  await SessionModel.query().deleteById(id);
   return true;
 };
 
-/**
- * Session handler object containing storeSession, loadSession, and
- * deleteSession functions.
- */
-const sessionHandler = { storeSession, loadSession, deleteSession };
-
-export default sessionHandler;
+export default { storeSession, loadSession, deleteSession };

@@ -1,8 +1,11 @@
 import "@shopify/shopify-api/adapters/node";
 import "dotenv/config";
 import Express from "express";
+import Knex from "knex";
+import cors from "cors"; 
+import knexConfig from "../knexfile.cjs"
+import { Model } from "objection"
 import fs from "fs";
-import mongoose from "mongoose";
 import path, { resolve } from "path";
 import { createServer as createViteServer } from "vite";
 import sessionHandler from "../utils/sessionHandler.js";
@@ -26,15 +29,24 @@ setupCheck(); // Run a check to ensure everything is setup properly
 const PORT = parseInt(process.env.PORT, 10) || 8081;
 const isDev = process.env.NODE_ENV === "dev";
 
-// MongoDB Connection
-const mongoUrl =
-  process.env.MONGO_URL || "mongodb://127.0.0.1:27017/shopify-express-app";
+const knex = Knex(knexConfig);
+Model.knex(knex);
 
-mongoose.connect(mongoUrl);
 
 const createServer = async (root = process.cwd()) => {
   const app = Express();
   app.disable("x-powered-by");
+
+  app.use(cors({
+    origin: ['https://your-ngrok-url.ngrok.io', 'https://your-shop.myshopify.com'], // Use your actual Shopify store domain and ngrok URL
+    credentials: true
+  }));
+  
+  app.use((req, res, next) => {
+    res.setHeader('X-Frame-Options', 'ALLOWALL');
+    next();
+  });
+  
 
   // Incoming webhook requests
   app.post(

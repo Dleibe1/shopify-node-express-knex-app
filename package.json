@@ -17,6 +17,9 @@
     "start": "NODE_ENV=prod node server/index.js",
     "-----> utils <-----": "",
     "update": "ncu -u",
+    "migrate:make": "npx knex --knexfile=knexfile.cjs migrate:make",
+    "migrate:latest": "npx knex --knexfile=knexfile.cjs migrate:latest",
+    "migrate:rollback": "npx knex --knexfile=knexfile.cjs migrate:rollback",
     "pretty": "prettier --write .",
     "-----> Tunnel <-----": "",
     "ngrok:auth": "ngrok authtoken <your-auth-token>",
@@ -31,16 +34,22 @@
     "preserve": "npm run build"
   },
   "dependencies": {
+    "@shopify/app-bridge-react": "^3.2.5",
+    "@shopify/app-bridge-utils": "^3.5.1",
     "@shopify/polaris": "^13.9.0",
     "@shopify/shopify-api": "^11.3.0",
     "compression": "^1.7.4",
+    "cors": "^2.8.5",
     "cryptr": "^6.3.0",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "mongoose": "^8.6.0",
+    "knex": "^2.5.1",
+    "objection": "^3.1.4",
+    "pg": "^8.12.0",
     "raviger": "^4.1.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.1",
     "serve-static": "^1.15.0"
   },
   "devDependencies": {

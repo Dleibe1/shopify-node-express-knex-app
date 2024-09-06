@@ -28,9 +28,7 @@ const isInitialLoad = async (req, res, next) => {
         session: offlineSession,
       });
 
-      const isFreshInstall = await StoreModel.findOne({
-        shop: onlineSession.shop,
-      });
+      const isFreshInstall = await StoreModel.query().findOne({ shop: onlineSession.shop });
 
       if (!isFreshInstall || isFreshInstall?.isActive === false) {
         // !isFreshInstall -> New Install

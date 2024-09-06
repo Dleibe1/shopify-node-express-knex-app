@@ -1,21 +1,18 @@
-// Session store model to preserve sessions across restarts.
-import mongoose from "mongoose";
+import { Model } from 'objection';
+import Knex from 'knex';
 
-const sessionSchema = new mongoose.Schema({
-  id: {
-    type: String,
-    required: true,
-  },
-  content: {
-    type: String,
-    required: true,
-  },
-  shop: {
-    type: String,
-    required: true,
-  },
-});
+import knexConfig from "../../knexfile.cjs"
 
-const SessionModel = mongoose.model("session", sessionSchema);
+Model.knex(knexConfig);
+
+class SessionModel extends Model {
+  static get tableName() {
+    return 'sessions';
+  }
+
+  static get idColumn() {
+    return 'id';
+  }
+}
 
 export default SessionModel;

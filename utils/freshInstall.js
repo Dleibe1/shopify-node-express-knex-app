@@ -9,11 +9,14 @@ import StoreModel from "./models/StoreModel.js";
 
 const freshInstall = async ({ shop }) => {
   console.log("This is a fresh install - run functions");
-  await StoreModel.findOneAndUpdate(
-    { shop: shop },
-    { isActive: true },
-    { upsert: true }
-  );
+  const existingStore = await StoreModel.query().findOne({ shop });
+
+  if (existingStore) {
+    await StoreModel.query().patch({ isActive: true }).where({ shop });
+  } else {
+    await StoreModel.query().insert({ shop, isActive: true });
+  }
 };
+
 
 export default freshInstall;

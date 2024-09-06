@@ -8,7 +8,7 @@ const setupCheck = () => {
     ENCRYPTION_STRING: encString,
     PORT: port,
     NPM_CONFIG_FORCE: forceInstall,
-    MONGO_URL: databaseURL,
+    PG_CONNECTION_STRING: databaseURL,
   } = process.env;
 
   let errorCount = 0;

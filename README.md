@@ -1,5 +1,13 @@
 # Shopify Node.js x Express.js x React.js Boilerplate
 
+
+Shout out to kinngh for the origional version!
+
+I really just did this for myself because I prefer Knex and Objection.
+There were also some setup tweaks I had to do to get everything working, so if kinngh's version gives you an error (I had problems with importing {Provider} but fixed it by changing @shopify/app-bridge-react to version 3.2.5 )
+
+I made some changes in SETUP.md for you to check out.
+
 An embedded app starter template to get up and ready with Shopify app development with JavaScript. This is heavily influenced by the choices Shopify Engineering team made in building their [starter template](https://github.com/Shopify/shopify-app-template-node) to ensure smooth transition between templates.
 
 I've included [notes](/docs/NOTES.md) on this repo which goes over the repo on why certain choices were made.

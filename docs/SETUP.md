@@ -1,5 +1,11 @@
 # Setup
 
+Shout out to kinngh for the origional version!
+
+I really just did this for myself because I prefer Knex and Objection.
+There were also some setup tweaks I had to do to get everything working, so if kinngh's version gives you an error (I had problems with importing {Provider} but fixed it by changing @shopify/app-bridge-react to version 3.2.5 )
+
+
 This is an in-depth guide on using this repo. This goes over getting the base repo up and running, to understand how to add your own customizations server side like registering webhooks, routes, etc, refer to [Notes](/docs/NOTES.md).
 
 `Windows` users, run `npm install -g win-node-env` before running the repo since `NODE_ENV` isn't recognized in Windows. Alternatively, you can replace it with `cross-env` and update `package.json` accordingly.

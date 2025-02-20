@@ -1,4 +1,4 @@
-# Shopify Node.js x Express.js x React.js Boilerplate
+# Shopify Node.js x Express.js x React.js Knex.js PostgresSQL boilerplate
 
 
 Shout out to kinngh for the origional version!
